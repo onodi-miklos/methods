@@ -1,0 +1,29 @@
+{
+      "name": "empty",
+      "version": "1.0.0",
+      "description": "",
+      "main": "index.js",
+      "type": "module",
+      "scripts": {
+            "start": "nodemon backend/app.cjs"
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC",
+      "devDependencies": {
+            "@types/node": "^25.0.3",
+            "nodemon": "^3.1.11",
+            "typescript": "^5.9.3"
+      },
+      "dependencies": {
+            "bcrypt": "^6.0.0",
+            "bootstrap": "^5.3.8",
+            "dotenv": "^17.2.3",
+            "express": "^5.2.1",
+            "jsonwebtoken": "^9.0.3",
+            "mongoose": "^9.0.2",
+            "morgan": "^1.10.0",
+            "mysql2": "^3.16.0",
+            "tailwind": "^2.3.1"
+      }
+}
