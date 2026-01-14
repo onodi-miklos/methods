@@ -5,14 +5,19 @@ const app = express()
 
 
 
-app.use(express.static(path.join(__dirname, './public')))
+// app.use(express.static(path.join(__dirname, './public')))
 
-app.get('/', (req, res) => {
-  res.status(200).sendFile(path.resolve(__dirname, './frontend/html/index.html'))
-})
-app.get('/data', (req, res) => {
-  res.json(data)
-})
+// app.get('/', (req, res) => {
+//   res.status(200).sendFile(path.resolve(__dirname, './frontend/html/index.html'))
+// })
+// app.get('/data', (req, res) => {
+//   res.json(data)
+// })
+
+
+
+
+
 
 
 app.listen(5000, () => {
