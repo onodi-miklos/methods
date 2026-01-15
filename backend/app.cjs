@@ -8,15 +8,9 @@ function logger(req, res, next){
   next()
 }
 
+app.use([express.json, express.static(path.join(__dirname, './public')), logger])
 
-app.use([express.static(path.join(__dirname, './public')), logger])
-
-// app.get('/', (req, res) => {
-//   res.status(200).sendFile(path.resolve(__dirname, './frontend/html/index.html'))
-// })
-// app.get('/data', (req, res) => {
-//   res.json(data)
-// })
+// I want to add params and queries
 
 app.get('/', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, './frontend/html/index.html'))
@@ -27,8 +21,16 @@ app.get('/data', (req, res) => {
   res.json(people)
 })
 app.post('/data', (req, res) => {
-  
-})
+  const { id, name } = req.body
+  if (!id || !name) {
+    return res.status(400).json({success: false, msg: 'please provide id and name'})
+  }
+
+  people.push({ id, name })
+  return res.status(201).json({
+    success: true,
+    data: people
+})})
 
 
 
