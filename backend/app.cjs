@@ -1,19 +1,32 @@
 const express = require('express')
 const path = require('path')
-const {people} = require('./data.cjs')
+let {people} = require('./data.cjs')
 const app = express()
 
 function logger(req, res, next){
-  console.log(req.method, req.url, req.queries)
+  console.log(
+    req.method,
+    req.url
+  )
+  if(req.method === 'GET'){
+    console.log(
+      req.params,
+      req.query
+    )
+  } else if(req.method === 'POST'){
+    console.log(
+      req.body
+    )
+  }
   next()
 }
 
-app.use([express.json, express.static(path.join(__dirname, './public')), logger])
+app.use([express.json(), express.urlencoded({ extended: true }), express.static(path.join(__dirname, './public')), logger])
 
 // I want to add params and queries
 
 app.get('/', (req, res) => {
-  res.status(200).sendFile(path.resolve(__dirname, './frontend/html/index.html'))
+  res.status(200).sendFile(path.resolve(__dirname, './frontend/index.html'))
 })
 
 
