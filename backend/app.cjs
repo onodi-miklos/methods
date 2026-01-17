@@ -46,19 +46,19 @@ app.get('/data/query', (req, res) => {
 
 app.post('/data', (req, res) => {
   const { name } = req.body
-  if (!name) {
-    return res.status(400).json({success: false, msg: 'please provide name'})
-  }
-
+  
   const ids = people.map((e) => {return e.id})
   let newId
   for(let i = 1;i <= ids.length+1; i++){
     if(!ids.includes(i)){
       newId = i
       break
-  }}
-  let newPerson = { id: newId, name }
-
+    }}
+    let newPerson = { id: newId, name }
+    
+    if (!name || !id) {
+      return res.status(400).json({success: false, msg: 'please provide name'})
+    }
   people.push(newPerson)
   res.status(201).json({
     success: true,
