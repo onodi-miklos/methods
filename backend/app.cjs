@@ -4,7 +4,7 @@ let {people} = require('./data.cjs')
 const {logger} = require('./logger.cjs')
 const app = express()
 
-app.use([express.json(), express.urlencoded({ extended: true }), express.static(path.join(__dirname, './public'))/*, logger */])
+app.use([express.json(), express.urlencoded({ extended: true }), express.static(path.join(__dirname, './public')), logger])
 
 
 
