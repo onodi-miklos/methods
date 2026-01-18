@@ -9,7 +9,7 @@ app.use([express.json(), express.urlencoded({ extended: true }), express.static(
 
 
 app.get('/', (req, res) => {
-  res.status(200).sendFile(path.resolve(__dirname, './frontend/index.html'))
+  res.status(200).sendFile(path.resolve(__dirname, './public/index.html'))
 })
 
 
