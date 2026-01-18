@@ -21,6 +21,9 @@ header h1, header #a{
   margin: 15px;
   transform: translateY(30px)
 }
+header ul{
+  transform: translateX(-150%)
+}
 header #a{
   color: #fafafa;
   text-decoration: none;

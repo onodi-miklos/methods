@@ -4,7 +4,7 @@ let {people} = require('./data.cjs')
 const {logger} = require('./logger.cjs')
 const app = express()
 
-app.use([express.json(), express.urlencoded({ extended: true }), express.static(path.join(__dirname, './public')), logger])
+app.use([express.json(), express.urlencoded({ extended: true }), express.static(path.join(__dirname, './public'))/*, logger */])
 
 
 
@@ -56,7 +56,7 @@ app.post('/data', (req, res) => {
     }}
     let newPerson = { id: newId, name }
     
-    if (!name || !id) {
+    if (!name) {
       return res.status(400).json({success: false, msg: 'please provide name'})
     }
   people.push(newPerson)

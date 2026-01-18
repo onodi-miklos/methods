@@ -28,7 +28,7 @@ function logger(req, res, next) {
     if (err) {
       console.error('Failed to write log:', err)
     }
-  })
+  }, {flag: 'a'})
 
   next()
 }
