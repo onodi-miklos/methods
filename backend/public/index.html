@@ -17,10 +17,16 @@
         <li></li>
         <li></li>
     </ul>
-    <button id="a" onclick="redirect()"><h1>GET</h1></button>
     </header>
 
     <div id="container">
+        
+        <form onsubmit="getForm()">
+            <input id="link" name="link" type="text" class="text" value="/data/" required>
+            <input type="submit" class="button" value="GET">
+        </form>
+
+        
         <form action="/data" method="post">
             <input name="name" type="text" id="name" class="text" placeholder="name">
             <input type="submit" value="POST" class="button">
@@ -29,12 +35,12 @@
 
     </div>
     <script>
-        function redirect(){
-            let url = window.prompt('url:\nlocalhost:5000/data/')
+        function getForm(){
+            let url = document.getElementById('link').value
             if(url === null){
-                return
+                break
             }
-            window.location.href = '/data/' + url
+            window.location.href = url
         }
     </script>
 </body>
