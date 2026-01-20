@@ -4,7 +4,7 @@ let {people} = require('./data.cjs')
 const {logger} = require('./logger.cjs')
 const app = express()
 
-app.use([express.json(), express.urlencoded({ extended: true }), express.static(path.join(__dirname, './public')), logger])
+app.use([logger, express.json(), express.urlencoded({ extended: true }), express.static(path.join(__dirname, './public'))])
 
 
 
@@ -14,19 +14,6 @@ app.get('/', (req, res) => {
 
 
 app.get('/data', (req, res) => {
-  res.json({success: true, data: people})
-})
-app.get('/data/param/:personId', (req, res) => {
-  const {personId} = req.params
-  const person = people.find(
-    (person) => person.id === Number(personId)
-  )
-  if(!person){
-    return res.status(404).json({ success: false, msg: "person not found" })
-  }
-  return res.json({success: true, data: person})
-})
-app.get('/data/query', (req, res) => {
   let {search, limit} = req.query
   let sortedPeople = [...people]
   search = search?.trim().toLowerCase()
@@ -42,6 +29,16 @@ app.get('/data/query', (req, res) => {
     return res.status(200).json({ success: true, data: [] })
   }
   res.status(200).json({success: true, data: sortedPeople})
+})
+app.get('/data/:personId', (req, res) => {
+  const {personId} = req.params
+  const person = people.find(
+    (person) => person.id === Number(personId)
+  )
+  if(!person){
+    return res.status(404).json({ success: false, msg: "person not found" })
+  }
+  return res.json({success: true, data: person})
 })
 
 app.post('/data', (req, res) => {
