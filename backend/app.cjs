@@ -36,7 +36,7 @@ app.get('/data/:personId', (req, res) => {
     (person) => person.id === Number(personId)
   )
   if(!person){
-    return res.status(404).json({ success: false, msg: "person not found" })
+    return res.status(404).json({ success: false, msg: `no person found with id ${personId}` })
   }
   
   return res.status(200).json({success: true, data: person})
@@ -82,7 +82,15 @@ app.put('/data/:personId', (req, res) => {
   res.status(200).json({success: true, data: people})
 })
 
+app.delete('/data/:personId', (req, res) => {
+  const person = people.find((person) => person.id === Number(req.params.personId))
+  if(!person){
+    return res.status(404).json({success: false, msg: `no person found with id ${req.params.personId}`})
+  }
 
+  people = people.filter((person) => person.id !== Number(req.params.personId))
+  return res.status(200).json({success: true, data: people})
+})
 
 app.listen(5000, () => {
   console.log('Server is listening on port 5000....')
