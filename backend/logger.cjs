@@ -1,10 +1,10 @@
+const { log } = require('console')
 const fs = require('fs')
 const path = require('path')
 
 const logFile = path.join(__dirname, 'log.txt')
 
 function logger(req, res, next) {
-  const start = Date.now()
 
   res.on('finish', () => {
     const timestamp = new Date().toISOString()
@@ -15,12 +15,12 @@ function logger(req, res, next) {
       status: res.statusCode,
       params: req.params,
       query: req.query,
-      durationMs: Date.now() - start
+      body: req.body
     }
 
-    const logLine = `[${timestamp}] ${JSON.stringify(logData)}\n`
+    const logLine = `[${timestamp}] ${JSON.stringify(logData)}\n\n`
 
-    console.log(logLine.trim())
+    // console.log(logLine.trim())
 
     fs.appendFile(logFile, logLine, err => {
       if (err) console.error(err)

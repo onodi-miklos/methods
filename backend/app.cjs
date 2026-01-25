@@ -8,9 +8,9 @@ app.use([logger, express.json(), express.urlencoded({ extended: true }), express
 
 
 
-app.get('/', (req, res) => {
-  res.status(200).sendFile(path.resolve(__dirname, './public/index.html'))
-})
+// app.get('/', (req, res) => {
+//   res.status(200).sendFile(path.resolve(__dirname, './public/index.html'))
+// })
 
 
 app.get('/data', (req, res) => {
@@ -38,7 +38,8 @@ app.get('/data/:personId', (req, res) => {
   if(!person){
     return res.status(404).json({ success: false, msg: "person not found" })
   }
-  return res.json({success: true, data: person})
+  
+  return res.status(200).json({success: true, data: person})
 })
 
 app.post('/data', (req, res) => {
@@ -61,6 +62,24 @@ app.post('/data', (req, res) => {
     success: true,
     data: people
   })
+})
+
+app.put('/data/:personId', (req, res) => {
+  const {personId} = req.params
+  const {name} = req.body
+
+  const isPerson = people.find((person) => person.id === Number(personId))
+  if(!isPerson){
+    return res.status(404).json({success: false, msg: `no person found with id ${personId}`})
+  }
+  people.forEach((person) => {
+    if (person.id === Number(personId)) {
+      person.name = name
+    }
+    return person
+  })
+
+  res.status(200).json({success: true, data: people})
 })
 
 
