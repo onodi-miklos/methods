@@ -8,10 +8,6 @@ app.use([logger, express.json(), express.urlencoded({ extended: true }), express
 
 
 
-// app.get('/', (req, res) => {
-//   res.status(200).sendFile(path.resolve(__dirname, './public/index.html'))
-// })
-
 
 app.get('/data', (req, res) => {
   let {search, limit} = req.query
