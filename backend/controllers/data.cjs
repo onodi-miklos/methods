@@ -75,6 +75,68 @@ const updatePerson = (req, res) => {
   return res.status(200).json({ success: true, data: people });
 };
 
+// AI GENERATED!!
+const patchPerson = (req, res) => {
+  const { personId } = req.params;
+  const updates = req.body;
+
+  const person = people.find((p) => p.id === Number(personId));
+  if (!person) {
+    return res
+      .status(404)
+      .json({ success: false, msg: `no person found with id ${personId}` });
+  }
+
+  // Allow partial updates to 'name' and 'id' (id must be a positive integer and unique)
+  const allowedFields = ["name", "id"];
+  const keys = Object.keys(updates || {});
+  if (keys.length < 1) {
+    return res
+      .status(400)
+      .json({ success: false, msg: "no fields provided for update" });
+  }
+
+  let updated = false;
+  for (const key of keys) {
+    if (!allowedFields.includes(key)) continue;
+
+    if (key === "name") {
+      if (typeof updates.name === "string" && updates.name.trim().length > 0) {
+        person.name = updates.name.trim();
+        updated = true;
+      }
+    }
+
+    if (key === "id") {
+      const newId = Number(updates.id);
+      if (!Number.isInteger(newId) || newId < 1) {
+        return res
+          .status(400)
+          .json({ success: false, msg: "id must be a positive integer" });
+      }
+
+      // If the id is different, ensure no other person already uses it
+      if (newId !== person.id && people.some((p) => p.id === newId)) {
+        return res
+          .status(400)
+          .json({ success: false, msg: `id ${newId} is already in use` });
+      }
+
+      person.id = newId;
+      updated = true;
+    }
+  }
+
+  if (!updated) {
+    return res
+      .status(400)
+      .json({ success: false, msg: "no valid fields provided for update" });
+  }
+
+  return res.status(200).json({ success: true, data: people });
+};
+
+// not AI generated
 const deletePerson = (req, res) => {
   const person = people.find(
     (person) => person.id === Number(req.params.personId),
@@ -95,5 +157,6 @@ module.exports = {
   getPerson,
   addPerson,
   updatePerson,
+  patchPerson,
   deletePerson,
 };

@@ -5,6 +5,7 @@ const {
   getPerson,
   addPerson,
   updatePerson,
+  patchPerson,
   deletePerson,
 } = require("../controllers/data.cjs");
 
@@ -15,6 +16,6 @@ const {
 // router.delete("/:personId", deletePerson);
 
 router.route("/").get(getPeople).post(addPerson);
-router.route("/:personId").get(getPerson).put(updatePerson).delete(deletePerson);
+router.route("/:personId").get(getPerson).put(updatePerson).patch(patchPerson).delete(deletePerson);
 
 module.exports = router;
