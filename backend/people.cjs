@@ -6,4 +6,4 @@ const people = [
   { id: 5, name: 'emma' }
 ]
 
-module.exports = { people }
+module.exports = people
