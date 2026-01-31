@@ -1,4 +1,6 @@
-let { people } = require("../people.cjs");
+let people = require("../people.cjs");
+const { writeFile } = require("fs");
+const path = require("path");
 
 const getPeople = (req, res) => {
   let { search, limit } = req.query;
@@ -49,6 +51,8 @@ const addPerson = (req, res) => {
     return res.status(400).json({ success: false, msg: "please provide name" });
   }
   people.push(newPerson);
+  updatePeopleFile(people);
+
   return res.status(201).json({
     success: true,
     data: people,
@@ -71,6 +75,7 @@ const updatePerson = (req, res) => {
     }
     return person;
   });
+  updatePeopleFile(people);
 
   return res.status(200).json({ success: true, data: people });
 };
@@ -132,6 +137,7 @@ const patchPerson = (req, res) => {
       .status(400)
       .json({ success: false, msg: "no valid fields provided for update" });
   }
+  updatePeopleFile(people);
 
   return res.status(200).json({ success: true, data: people });
 };
@@ -149,8 +155,20 @@ const deletePerson = (req, res) => {
   }
 
   people = people.filter((person) => person.id !== Number(req.params.personId));
+  updatePeopleFile(people);
+
   return res.status(200).json({ success: true, data: people });
 };
+
+function updatePeopleFile(content) {
+  const filePath = path.join(__dirname, "..", "people.cjs");
+  const fileData = `const people = ${JSON.stringify(content, null, 2)}\n\nmodule.exports = people`;
+  writeFile(filePath, fileData, (err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+}
 
 module.exports = {
   getPeople,

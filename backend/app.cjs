@@ -13,9 +13,9 @@ app.use([
 
 app.use("/data", people);
 
-app.all(/.*/,(req,res)=>{
-  res.status(404).send('the page doesnt exist')
-})
+app.all(/.*/, (req, res) => {
+  res.status(404).send("the page doesnt exist");
+});
 
 app.listen(5000, () => {
   console.log("Server is listening on port 5000....");
