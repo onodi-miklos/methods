@@ -1,5 +1,6 @@
-let { people } = require("../people.cjs");
+let people = require("../people.cjs");
 const { writeFile } = require("fs");
+const path = require("path");
 
 const getPeople = (req, res) => {
   let { search, limit } = req.query;
@@ -159,14 +160,13 @@ const deletePerson = (req, res) => {
   return res.status(200).json({ success: true, data: people });
 };
 
-const exportLine = "\n\nmodule.exports = people";
 function updatePeopleFile(content) {
-  writeFile("./people.cjs", content + exportLine, (err, result) => {
+  const filePath = path.join(__dirname, "..", "people.cjs");
+  const fileData = `const people = ${JSON.stringify(content, null, 2)}\n\nmodule.exports = people`;
+  writeFile(filePath, fileData, (err) => {
     if (err) {
       console.error(err);
-      return;
     }
-    return;
   });
 }
 
