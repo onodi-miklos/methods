@@ -17,6 +17,11 @@ const {
 // router.delete("/:personId", deletePerson);
 
 router.route("/").get(getPeople).post(addPerson);
-router.route("/:personId").get(getPerson).put(updatePerson).patch(patchPerson).delete(deletePerson);
+router
+  .route("/:personId")
+  .get(getPerson)
+  .put(updatePerson)
+  .patch(patchPerson)
+  .delete(deletePerson);
 
 module.exports = router;

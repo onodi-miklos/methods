@@ -51,7 +51,7 @@ const addPerson = (req, res) => {
     return res.status(400).json({ success: false, msg: "please provide name" });
   }
   people.push(newPerson);
-  updatePeopleFile(people)
+  updatePeopleFile(people);
 
   return res.status(201).json({
     success: true,
@@ -75,7 +75,7 @@ const updatePerson = (req, res) => {
     }
     return person;
   });
-  updatePeopleFile(people)
+  updatePeopleFile(people);
 
   return res.status(200).json({ success: true, data: people });
 };
@@ -137,7 +137,7 @@ const patchPerson = (req, res) => {
       .status(400)
       .json({ success: false, msg: "no valid fields provided for update" });
   }
-  updatePeopleFile(people)
+  updatePeopleFile(people);
 
   return res.status(200).json({ success: true, data: people });
 };
@@ -155,7 +155,7 @@ const deletePerson = (req, res) => {
   }
 
   people = people.filter((person) => person.id !== Number(req.params.personId));
-  updatePeopleFile(people)
+  updatePeopleFile(people);
 
   return res.status(200).json({ success: true, data: people });
 };
