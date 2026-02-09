@@ -4,8 +4,12 @@ const { logger } = require("./logger.cjs");
 const people = require("./routes/data.cjs");
 const app = express();
 
+app.use(logger([
+  "file",
+  // "console"
+]))
+
 app.use([
-  logger,
   express.json(),
   express.urlencoded({ extended: true }),
   express.static(path.join(__dirname, "./public")),
@@ -14,7 +18,7 @@ app.use([
 app.use("/data", people);
 
 app.all(/.*/, (req, res) => {
-  res.status(404).send("the page doesnt exist");
+  res.status(404).json({success: false, msg: "The page doesn't exist"});
 });
 
 app.listen(5000, () => {

@@ -1,10 +1,9 @@
-const { log } = require("console");
 const fs = require("fs");
 const path = require("path");
 
 const logFile = path.join(__dirname, "log.txt");
 
-function logger(req, res, next) {
+const logger = (options) => {return (req, res, next) =>{
   res.on("finish", () => {
     const timestamp = new Date().toISOString();
 
@@ -19,14 +18,21 @@ function logger(req, res, next) {
 
     const logLine = `[${timestamp}] ${JSON.stringify(logData)}\n\n`;
 
-    // console.log(logLine.trim())
-
-    fs.appendFile(logFile, logLine, (err) => {
-      if (err) console.error(err);
-    });
+    if(
+      options.includes("console")
+    ){
+      console.log(logLine.trim())
+    }
+    if(
+      options.includes("file")
+    ){
+      fs.appendFile(logFile, logLine, (err) => {
+        if (err) console.error(err);
+      });
+    }
   });
 
   next();
-}
+}}
 
 module.exports = { logger };
