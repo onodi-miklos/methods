@@ -35,4 +35,4 @@ const logger = (options) => {return (req, res, next) =>{
   next();
 }}
 
-module.exports = { logger };
+module.exports = logger;
