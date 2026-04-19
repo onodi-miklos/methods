@@ -5,7 +5,7 @@
       "main": "index.js",
       "type": "module",
       "scripts": {
-            "start": "nodemon backend/app.cjs"
+            "start": "nodemon new/app.cjs"
       },
       "keywords": [],
       "author": "",
@@ -16,11 +16,13 @@
             "typescript": "^5.9.3"
       },
       "dependencies": {
+            "@onodi-miklos/logger": "^1.1.1",
             "bcrypt": "^6.0.0",
             "bootstrap": "^5.3.8",
             "dotenv": "^17.2.3",
             "express": "^5.2.1",
             "jsonwebtoken": "^9.0.3",
+            "mongodb": "^7.1.1",
             "mongoose": "^9.0.2",
             "morgan": "^1.10.0",
             "mysql2": "^3.16.0",

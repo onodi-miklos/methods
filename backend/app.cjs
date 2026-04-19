@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const logger = require("./logger.cjs");
+const logger = require("@onodi-miklos/logger.cjs");
 const people = require("./routes/data.cjs");
 const app = express();
 
