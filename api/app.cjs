@@ -1,6 +1,7 @@
 const path = require('path')
 const logger = require('@onodi-miklos/logger')
 const express = require('express')
+const data = require('./routes/data.cjs')
 
 const app = express()
 
@@ -12,13 +13,11 @@ app.use(logger([
 app.use([
   express.json(),
   express.urlencoded({ extended: true }),
-  express.static(path.join(__dirname, "./public")),
+  // express.static(path.join(__dirname, "./public")),
 ]);
 
-// requests
 
-
-
+app.use("/api", data)
 
 
 app.all(/.*/, (req, res) => {

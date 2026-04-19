@@ -1,11 +1,11 @@
 const express = require("express");
 const path = require("path");
-const logger = require("@onodi-miklos/logger.cjs");
+const logger = require("@onodi-miklos/logger");
 const people = require("./routes/data.cjs");
 const app = express();
 
 app.use(logger([
-  "file",
+  // "file",
   // "console"
 ]))
 
