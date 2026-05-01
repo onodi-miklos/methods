@@ -17,7 +17,7 @@ const getPeople = (req, res) => {
   if (sortedPeople.length < 1) {
     return res.status(200).json({ success: true, data: [] });
   }
-  res.status(200).json({ success: true, data: sortedPeople });
+  return res.status(200).json({ success: true, data: sortedPeople });
 };
 
 const getPerson = (req, res) => {
@@ -55,7 +55,7 @@ const addPerson = (req, res) => {
 
   return res.status(201).json({
     success: true,
-    data: people,
+    data: people
   });
 };
 
@@ -142,7 +142,6 @@ const patchPerson = (req, res) => {
   return res.status(200).json({ success: true, data: people });
 };
 
-// not AI generated
 const deletePerson = (req, res) => {
   const person = people.find(
     (person) => person.id === Number(req.params.personId),
