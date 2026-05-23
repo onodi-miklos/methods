@@ -4,10 +4,11 @@
 const { MongoClient } = require('mongodb')
 
 let dbConnection
+let uri = 'mongodb://localhost:27017/db'
 
 module.exports = {
   connectToDb: (cb) => {
-    MongoClient.connect('mongodb://localhost:27017/db')
+    MongoClient.connect(uri)
       .then((client) => {
         dbConnection = client.db()
         console.log('Successfully connected to db')

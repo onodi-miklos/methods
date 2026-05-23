@@ -7,7 +7,7 @@ const {
   updatePerson,
   patchPerson,
   deletePerson,
-} = require("../controllers/data.cjs");
+} = require("../controllers/api.cjs");
 
 // router.get("/", getPeople);
 // router.get("/:personId", getPerson);
